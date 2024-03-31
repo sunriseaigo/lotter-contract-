@@ -37,14 +37,14 @@ export default function WithSubnavigation() {
 
     const account = useAccount()
 
-    console.log(account.address)
+    // console.log(account.address)
 
     const { data, isError, isLoading } = useContractRead({
         address: '0xB3878fD08555F33853BC3F33E251D06045613b68',
         abi: lottoryContract.abi,
         functionName: 'owner',
     })
-    console.log(data)
+    // console.log(data)
 
     useEffect(() => {
         isConnected && toast({
@@ -55,7 +55,8 @@ export default function WithSubnavigation() {
             isClosable: true,
             position: 'top-right'
         })
-        isConnected ? data === account.address ? router.push("/admin") : router.push("/lottory") : router.push("/signin")
+        // isConnected ? data === account.address ? router.push("/admin") : router.push("/lottery") : router.push("/signin")
+        isConnected ? data === account.address ? router.push("/admin") : router.push("/lottery") : router.push("/signin")
 
 
     }, [isConnected])
@@ -68,7 +69,7 @@ export default function WithSubnavigation() {
                 color={useColorModeValue('gray.600', 'white')}
                 minH={'60px'}
                 py={{ base: 2 }}
-                px={{ base: 4 }}
+                px={{ base: 12 }}
                 borderBottom={1}
                 borderStyle={'solid'}
                 borderColor={useColorModeValue('gray.200', 'gray.900')}
@@ -136,7 +137,7 @@ export default function WithSubnavigation() {
                                     {(() => {
                                         if (!connected) {
                                             return (
-                                                <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'} onClick={openConnectModal}>
+                                                <Button as={'a'} fontSize={'sm'} fontWeight={400} variant={'link'} href={'#'} onClick={() => openConnectModal()}>
                                                     Connect Wallet
                                                 </Button>
                                             );

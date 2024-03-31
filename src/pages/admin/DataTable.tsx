@@ -1,5 +1,24 @@
 import * as React from "react";
 import { Table, Thead, Tbody, Tr, Th, Td, chakra } from "@chakra-ui/react";
+
+import {
+    Box,
+    Flex,
+    Text,
+    IconButton,
+    Button,
+    Stack,
+    Collapse,
+    Icon,
+    Popover,
+    PopoverTrigger,
+    PopoverContent,
+    useColorModeValue,
+    useBreakpointValue,
+    useDisclosure,
+    useToast
+} from '@chakra-ui/react'
+
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import {
     useReactTable,
@@ -32,54 +51,65 @@ export function DataTable<Data extends object>({
     });
 
     return (
-        <Table>
-            <Thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                    <Tr key={headerGroup.id}>
-                        {headerGroup.headers.map((header) => {
-                            // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-                            const meta: any = header.column.columnDef.meta;
-                            return (
-                                <Th
-                                    key={header.id}
-                                    onClick={header.column.getToggleSortingHandler()}
-                                    isNumeric={meta?.isNumeric}
-                                >
-                                    {flexRender(
-                                        header.column.columnDef.header,
-                                        header.getContext()
-                                    )}
+        <Flex
+            bg={useColorModeValue('white', 'gray.800')}
+            color={useColorModeValue('gray.600', 'white')}
+            minH={'60px'}
+            py={{ base: 2 }}
+            px={{ base: 40 }}
+            borderBottom={1}
+            borderStyle={'solid'}
+            borderColor={useColorModeValue('gray.200', 'gray.900')}
+            align={'center'}>
+            <Table>
+                <Thead>
+                    {table.getHeaderGroups().map((headerGroup) => (
+                        <Tr key={headerGroup.id}>
+                            {headerGroup.headers.map((header) => {
+                                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                                const meta: any = header.column.columnDef.meta;
+                                return (
+                                    <Th
+                                        key={header.id}
+                                        onClick={header.column.getToggleSortingHandler()}
+                                        isNumeric={meta?.isNumeric}
+                                    >
+                                        {flexRender(
+                                            header.column.columnDef.header,
+                                            header.getContext()
+                                        )}
 
-                                    <chakra.span pl="4">
-                                        {header.column.getIsSorted() ? (
-                                            header.column.getIsSorted() === "desc" ? (
-                                                <TriangleDownIcon aria-label="sorted descending" />
-                                            ) : (
-                                                <TriangleUpIcon aria-label="sorted ascending" />
-                                            )
-                                        ) : null}
-                                    </chakra.span>
-                                </Th>
-                            );
-                        })}
-                    </Tr>
-                ))}
-            </Thead>
-            <Tbody>
-                {table.getRowModel().rows.map((row) => (
-                    <Tr key={row.id}>
-                        {row.getVisibleCells().map((cell) => {
-                            // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
-                            const meta: any = cell.column.columnDef.meta;
-                            return (
-                                <Td key={cell.id} isNumeric={meta?.isNumeric}>
-                                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                </Td>
-                            );
-                        })}
-                    </Tr>
-                ))}
-            </Tbody>
-        </Table>
+                                        <chakra.span pl="4">
+                                            {header.column.getIsSorted() ? (
+                                                header.column.getIsSorted() === "desc" ? (
+                                                    <TriangleDownIcon aria-label="sorted descending" />
+                                                ) : (
+                                                    <TriangleUpIcon aria-label="sorted ascending" />
+                                                )
+                                            ) : null}
+                                        </chakra.span>
+                                    </Th>
+                                );
+                            })}
+                        </Tr>
+                    ))}
+                </Thead>
+                <Tbody>
+                    {table.getRowModel().rows.map((row) => (
+                        <Tr key={row.id}>
+                            {row.getVisibleCells().map((cell) => {
+                                // see https://tanstack.com/table/v8/docs/api/core/column-def#meta to type this correctly
+                                const meta: any = cell.column.columnDef.meta;
+                                return (
+                                    <Td key={cell.id} isNumeric={meta?.isNumeric}>
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </Td>
+                                );
+                            })}
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
+        </Flex>
     );
 }
