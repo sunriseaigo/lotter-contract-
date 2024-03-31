@@ -1,12 +1,12 @@
 import Layout from "@/components/Layout";
 
-const SingIn = ({ Component, pageProps }) => {
+const Lottory = ({ Component, pageProps }) => {
     return (
         <Layout>
             {/* <Component {...pageProps} /> */}
-            <div>Sign In Page</div>
+            <div>Lottory</div>
         </Layout>
     )
 }
 
-export default SingIn
+export default Lottory
