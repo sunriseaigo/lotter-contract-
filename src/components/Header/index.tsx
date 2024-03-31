@@ -25,14 +25,26 @@ import {
 } from '@chakra-ui/icons'
 import { ConnectButton, } from '@rainbow-me/rainbowkit'
 import { useEffect, useMemo } from 'react'
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount, useConnect, useContractRead } from 'wagmi'
 import { useRouter } from 'next/router'
+import lottoryContract from "../../utils/abis/lottory.json"
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
     const { connector: activeConnector, isConnected } = useAccount()
     const toast = useToast()
     const router = useRouter()
+
+    const account = useAccount()
+
+    console.log(account.address)
+
+    const { data, isError, isLoading } = useContractRead({
+        address: '0xB3878fD08555F33853BC3F33E251D06045613b68',
+        abi: lottoryContract.abi,
+        functionName: 'owner',
+    })
+    console.log(data)
 
     useEffect(() => {
         isConnected && toast({
@@ -43,7 +55,7 @@ export default function WithSubnavigation() {
             isClosable: true,
             position: 'top-right'
         })
-        isConnected ? router.push("/admin") : router.push("/signin")
+        isConnected ? data === account.address ? router.push("/admin") : router.push("/lottory") : router.push("/signin")
 
 
     }, [isConnected])
