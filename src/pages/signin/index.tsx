@@ -15,6 +15,7 @@ import {
     useColorModeValue,
     useBreakpointValue,
     useDisclosure,
+    useToast
 } from '@chakra-ui/react'
 import {
     HamburgerIcon,
@@ -22,11 +23,25 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
 } from '@chakra-ui/icons'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-
+import { ConnectButton, } from '@rainbow-me/rainbowkit'
+import { useMemo } from 'react'
+import { useAccount, useConnect } from 'wagmi'
 
 export default function WithSubnavigation() {
     const { isOpen, onToggle } = useDisclosure()
+    const { connector: activeConnector, isConnected } = useAccount()
+    const toast = useToast()
+
+    useMemo(() => {
+        isConnected && toast({
+            title: 'Sign In',
+            description: "You sign in successfully with your wallet",
+            status: 'success',
+            duration: 4000,
+            isClosable: true,
+            position: 'top-right'
+        })
+    }, [isConnected])
 
     return (
         <Box>
