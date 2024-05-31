@@ -3,7 +3,7 @@ import { SunIcon, MoonIcon } from '@chakra-ui/icons'
 import Head from 'next/head'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { useContractRead, useAccount, useEnsAddress } from 'wagmi'
-import lottoryContract from "../utils/abis/lottory.json"
+import lottoryContract from '../utils/abis/Gambling.json'
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -14,7 +14,7 @@ export default function Home() {
   console.log(account.address)
 
   const { data, isError, isLoading } = useContractRead({
-    address: '0xB3878fD08555F33853BC3F33E251D06045613b68',
+    address: '0x26c04d91E7C8126A27a50502095792E65f7D7Da9',
     abi: lottoryContract.abi,
     functionName: 'owner',
   })

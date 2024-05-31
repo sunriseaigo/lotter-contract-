@@ -2,12 +2,9 @@ import { ChakraProvider, localStorageManager } from '@chakra-ui/react'
 import type { AppProps } from 'next/app'
 import theme from '../theme'
 
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi';
+import '@rainbow-me/rainbowkit/styles.css'
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { configureChains, createClient, WagmiConfig, Chain } from 'wagmi'
 import {
   arbitrum,
   arbitrumGoerli,
@@ -23,64 +20,49 @@ import {
   polygonZkEvmTestnet,
   sepolia,
   polygonMumbai,
-
-} from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
-import { AlchemyProvider } from '@ethersproject/providers'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
-
-import { connectorsForWallets } from '@rainbow-me/rainbowkit';
-import {
-  rainbowWallet,
-  walletConnectWallet,
-} from '@rainbow-me/rainbowkit/wallets';
+} from 'wagmi/chains'
+import { publicProvider } from 'wagmi/providers/public'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 const polygonTestChain: Chain = {
-  id: 80001, // Chain ID for Polygon Mainnet
-  name: 'Polygon',
-  network: 'polygon',
+  id: 80002, // Chain ID for Polygon Mainnet
+  name: 'Amoy',
+  network: 'Amoy',
   nativeCurrency: {
     decimals: 18,
     name: 'Polygon',
     symbol: 'MATIC',
   },
   rpcUrls: {
-    default: { http: ["https://polygon-mumbai.g.alchemy.com/v2/EcSrakQPOXrrDZq9rY3D_JPAlVe6QpBO"] },
-    public: { http: ["https://polygon-mumbai.g.alchemy.com/v2/EcSrakQPOXrrDZq9rY3D_JPAlVe6QpBO"] },
+    default: { http: ['https://polygon-amoy.drpc.org'] },
+    public: { http: ['https://polygon-amoy.drpc.org'] },
   },
   blockExplorers: {
-    default: { name: 'PolygonScan', url: 'https://mumbai.polygonscan.com/' },
+    default: { name: 'AmoyScan', url: 'https://amoy.polygonscan.com/' },
   },
-  contracts: {
-    ensRegistry: {
-      address: '0xB3878fD08555F33853BC3F33E251D06045613b68',
-    },
-  },
+
   testnet: true,
-};
+}
 
 const { chains, provider } = configureChains(
+  [mainnet, polygonTestChain],
   [
-    mainnet,
-    polygonTestChain
-  ],
-  [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID || "EcSrakQPOXrrDZq9rY3D_JPAlVe6QpBO" }),
+    // alchemyProvider({ apiKey: process.env.ALCHEMY_ID || "EcSrakQPOXrrDZq9rY3D_JPAlVe6QpBO" }),
     jsonRpcProvider({
       rpc: () => {
         return {
-          http: "https://polygon-mumbai.g.alchemy.com/v2/EcSrakQPOXrrDZq9rY3D_JPAlVe6QpBO"
+          http: 'https://polygon-amoy.drpc.org',
+          // http: 'https://polygon-amoy.drpc.org',
         }
-      }
+      },
     }),
-    publicProvider()
+    publicProvider(),
   ]
-);
+)
 const { connectors } = getDefaultWallets({
   appName: 'lottery',
-  chains
-});
+  chains,
+})
 
 // const connectors = connectorsForWallets(
 //   [
@@ -105,12 +87,12 @@ const wagmiClient = createClient({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <WagmiConfig client={wagmiClient} >
-      <RainbowKitProvider chains={chains} modalSize='compact'>
+    <WagmiConfig client={wagmiClient}>
+      <RainbowKitProvider chains={chains} modalSize="compact">
         <ChakraProvider theme={theme} colorModeManager={localStorageManager}>
           <Component {...pageProps} />
         </ChakraProvider>
       </RainbowKitProvider>
-    </WagmiConfig >
+    </WagmiConfig>
   )
 }
