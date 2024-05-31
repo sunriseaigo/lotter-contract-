@@ -16,6 +16,8 @@ Open [http://localhost:3000/signin](http://localhost:3000) with your browser to 
 
 ## Video Demo
 
+[https://github.com/sunriseaigo/lottery-contract-frontend/tree/master/public/betting_video.mp4]
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
