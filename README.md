@@ -16,7 +16,7 @@ Open [http://localhost:3000/signin](http://localhost:3000) with your browser to 
 
 ## Video Demo
 
-[https://github.com/sunriseaigo/lottery-contract-frontend/tree/master/public/betting_video.mp4]
+(https://drive.google.com/file/d/14FkDsWSJ7eWKOxc6Q2fhfKb1BS4AJDA-/view?usp=sharing)
 
 ## Learn More
 
