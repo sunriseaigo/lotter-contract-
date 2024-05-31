@@ -15,7 +15,11 @@ pnpm dev
 Open [http://localhost:3000/signin](http://localhost:3000) with your browser to see the result.
 
 ## Video Demo
-(https://drive.google.com/file/d/14FkDsWSJ7eWKOxc6Q2fhfKb1BS4AJDA-/view?usp=sharing)
+
+
+https://github.com/sunriseaigo/lottery-contract-frontend/assets/156091037/a5c84fce-46b1-40d0-963b-34ab2741c01b
+
+
 
 ## Learn More
 
